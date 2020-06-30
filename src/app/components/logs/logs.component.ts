@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
-
-import { Log } from '../../models/ts';
 import { Log } from 'src/app/models/log';
 
 @Component({
@@ -15,7 +13,13 @@ export class LogsComponent implements OnInit {
   constructor(private logServ:LogService) { }
 
   ngOnInit() {
-    this.logs = this.logServ.getLogs();
+    this.logServ.getLogs().subscribe(val=>{
+      this.logs = val;
+    })
   }
 
+  onSelect(log:Log){
+    
+    this.logServ.setFormLog(log);
+  }
 }
