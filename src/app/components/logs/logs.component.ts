@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LogService } from 'src/app/services/log.service';
+
+import { Log } from '../../models/ts';
+import { Log } from 'src/app/models/log';
 
 @Component({
   selector: 'app-logs',
@@ -6,20 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logs.component.css']
 })
 export class LogsComponent implements OnInit {
-  logs:{
-    id:string,
-    text:string,
-    date:any
-  }[];
-  constructor() { }
+  
+  logs:Log[];
+  constructor(private logServ:LogService) { }
 
   ngOnInit() {
-    this.logs =[
-      {id:'1', text:'Generated Component',date: new Date('12/26/2017 12:54:23')},
-      {id:'2', text:'Added bootstrap',date: new Date('12/26/2017 12:54:23')},
-      {id:'3', text:'Generated Second Component',date: new Date('12/26/2017 12:54:23')}
-    ]
-
+    this.logs = this.logServ.getLogs();
   }
 
 }
