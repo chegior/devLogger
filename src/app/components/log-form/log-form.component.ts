@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
 import { Log } from 'src/app/models/log';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-log-form',
@@ -48,6 +49,18 @@ export class LogFormComponent implements OnInit {
 
     this.servLog.updtLog(updLog);
     }
+
+    this.clearState();
+  }
+
+
+  clearState(){
+    this.isNew = true;
+    this.id = '';
+    this.text = '';
+    this.date  = '';
+    this.servLog.clearState();
+  
   }
 
   generateId(){
