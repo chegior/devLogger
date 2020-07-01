@@ -28,7 +28,15 @@ export class LogService {
   }
 
   getLogs():Observable<Log[]>{
-    return of(this.logs);
+    if(localStorage.getItem('logs') === null){
+      this.logs = [];
+    }else{
+      this.logs = JSON.parse(localStorage.getItem('logs'))
+    }
+    return of(this.logs.sort((a,b)=>{
+      return b.date = a.date;
+    }));
+
   }
 
   setFormLog(log:Log){
@@ -37,8 +45,9 @@ export class LogService {
   }
   addLog(log:Log){
     this.logs.unshift(log);
-    console.log(this.logs);
-
+    
+    localStorage.setItem('logs',JSON.stringify(this.logs));
+    
   }
   updtLog(log:Log){
     this.logs.forEach((curr,index)=>{
@@ -47,6 +56,7 @@ export class LogService {
         }
     });
     this.logs.unshift(log);
+    localStorage.setItem('logs',JSON.stringify(this.logs));
   }
 
   deleteLog(log:Log){
@@ -54,6 +64,7 @@ export class LogService {
       if(log.id === curr.id){
         this.logs.splice(index,1);
       }
+      localStorage.setItem('logs',JSON.stringify(this.logs));
   });
   
   }
