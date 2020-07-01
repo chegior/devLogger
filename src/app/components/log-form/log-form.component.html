@@ -4,7 +4,7 @@
             <input type="text" class="form-control" placeholder="Add a log..." name ='text'[(ngModel)]='text'>
             
         </div>
-        <input type="submit" value="Add log" class="btn light" [disabled]="!this.text">
+        <input type="submit" value="{{isNew ? 'Add log' : 'Update'}}" class="btn light" [disabled]="!this.text">
         <button type="button" (click)="clearState()" class="btn btn-warning" [hidden]="!this.text">Clear</button>
     </form>
 </div>
